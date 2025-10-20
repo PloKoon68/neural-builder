@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  react:
+    container_name: react_ui
+    build:
+      context: ./view
+      dockerfile: Dockerfile
+      target: production   # Use production stage in multi-stage Dockerfile
+    ports:
+      - "80:80"            # React will be served via NGINX
+    restart: always
+
+  express:
+    container_name: express_api
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./server/.env
+    restart: always
+    environment:
+      - NODE_ENV=production
+
+  crow:
+    container_name: crow_service
+    build:
+      context: ./c++-framework
+      dockerfile: Dockerfile
+    ports:
+      - "18080:18080"
+    restart: always
+    

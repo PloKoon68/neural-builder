@@ -1,0 +1,27 @@
+/* App.css */
+
+body, html {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.App {
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100vw;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+
+  background: linear-gradient(
+  90deg,
+  rgba(255, 94, 98, 1) 0%,
+  rgba(255, 165, 0, 1) 50%,
+  rgb(237, 196, 160) 100%
+  );
+  overflow: hidden;
+}
+
+
+
+
+
