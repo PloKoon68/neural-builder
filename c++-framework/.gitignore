@@ -1,0 +1,14 @@
+# Ignore build files
+build/
+out/
+*.o
+*.obj
+*.exe
+*.log
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Ignore Visual Studio files
+.vs/
