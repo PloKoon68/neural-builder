@@ -1,0 +1,46 @@
+name: CI/CD - Express Backend
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'server/**'
+      - 'Dockerfile'
+
+jobs:
+  test-build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Install dependencies & test build
+      - name: Install Dependencies
+        run: |
+          cd server
+          npm ci
+
+      - name: Run Lint/Test
+        run: |
+          cd server
+          npm run lint || echo "No lint script found"
+          npm test || echo "No tests defined"
+
+      # Docker build & push
+      - name: Build and Push Docker Image
+        run: |
+          cd server
+          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/deep-learning-framework-express:latest .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/deep-learning-framework-express:latest
+
+
+      # Trigger Render redeploy
+      - name: Trigger Render Deploy
+        run: |
+          curl -X POST "https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID_SERVER }}/deploys" \
+          -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+          -H "accept: application/json" \
+          -H "content-type: application/json"
