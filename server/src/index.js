@@ -18,7 +18,9 @@ const app = express();
 const port = process.env.PORT || 5000;                                                  
 app.use(cors({  
   origin: ["http://localhost", "http://localhost:3000", "http://localhost:3001", 
-    "https://plokoon68.github.io", "https://deep-learning-framework-view.onrender.com"],  // Allow frontend to access backend
+    "https://plokoon68.github.io",
+    "https://nn-builder.vercel.app",
+    "https://deep-learning-framework-view.onrender.com"],  // Allow frontend to access backend
   methods: "GET,POST,PUT,DELETE",
   allowedHeaders: "Content-Type,Authorization",
   credentials: true   
