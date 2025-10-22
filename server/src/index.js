@@ -6,7 +6,7 @@ const cookieParser = require("cookie-parser");
 connectDB()
 require('dotenv').config({ path: '../.env' });
 
-/*
+/*~
 const criteriasRoutes = require('./routes/criteriasRoutes');
 const decisionMatrixRoutes = require('./routes/decisionMatrixRoutes');
 */

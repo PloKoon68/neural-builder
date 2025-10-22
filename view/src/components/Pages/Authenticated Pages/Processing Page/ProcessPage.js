@@ -19,7 +19,6 @@ import '../../../../style/Pages/Processing Page Style/mainBox.css'; // for styli
 
 import { Virtuoso } from "react-virtuoso";
 
-import { List } from 'react-window';
 
 
 
