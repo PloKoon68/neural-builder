@@ -13,7 +13,7 @@ router.get("/:modelId", async (req, res) => {
   
 });
  
-// for saving model data
+// for saving model dataj
 router.post('/', async (req, res) => {
   const modelInfo = req.body;
   try {

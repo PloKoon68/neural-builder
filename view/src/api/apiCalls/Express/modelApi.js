@@ -29,7 +29,7 @@ const updateStatue = async (modelId, isCompiled, isTrained) => {
 
 
 const updateModel = async (modelId, updatedData) => {
-  //console.log("mid:", modelId, "updaedDate:", updatedData)
+  //console.log("mid:", modelId, "updaedDate:", updatedData).j
   return (await expressAPI.put(`/models/${modelId}`, updatedData, { withCredentials: true })).data;
 };
 
