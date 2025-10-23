@@ -8,7 +8,7 @@ import PrivateRoute from './components/Routes/PrivateRoute.js'; // adjust path a
 import NonePrivateRoute from './components/Routes/NonePrivateRoute.js'; // adjust path as needed
 
 
-
+import LandingPage from './components/Pages/Public Pages/LandingPage'; // or wherever you put it
 import MyModels from './components/Pages/Authenticated Pages/MyModels.js';
 import ProcessPage from './components/Pages/Authenticated Pages/Processing Page/ProcessPage';
 import LoginPage from "./components/Pages/None Authenticated Pages/LoginPage.js"
@@ -26,11 +26,9 @@ import { checkExpressHealth, checkCrowHealth } from './api/axious.js';
 import GlobalSpinner from "./components/GlobalSpinner.js"
 
 function App() {
-  const { waitAuthorization } = useAuth();
+  const { isLoggedIn, waitAuthorization } = useAuth();
 
   const [saved, setSaved] = useState(true);
-
-
 
   useEffect(() => {
     checkExpressHealth();
@@ -47,7 +45,13 @@ function App() {
       <Navbar saved={saved} setSaved={setSaved} />
 
       <Routes>
-        <Route path="/" element={<Navigate to="/about" />} />
+        <Route path="/" element={
+          isLoggedIn ? <Navigate to="/my-models" /> : <LandingPage />
+        } />
+        <Route path="/home" element={<LandingPage />} /> {/* Always accessible */}
+
+
+
         <Route
           path="/my-models"
           element={
