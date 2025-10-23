@@ -32,6 +32,9 @@ const expressAPI = axios.create({
     }
   });
 
+console.log("sending to: ", EXPRESS_URL)
+console.log("crowcr to: ", CROW_URL_HTTP)
+console.log("crowws to: ", CROW_URL_WS)
 
 
   // Health check functions
