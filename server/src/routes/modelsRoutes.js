@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authenticateUser = require('../middleware/authenticateUser'); // adjust path as needed
-const { getAllModelsByUserId, createModel, deleteModelById, updateModelById } = require('../models/modelModel.js');
+const { getAllModelsByUserId, createModel, deleteModelById, updateModelById, updateStatusById } = require('../models/modelModel.js');
 const { createDefaultModelInfo } = require('../models/modelInfoModel.js');
 
 router.get("/", authenticateUser, async (req, res) => {
@@ -10,30 +10,13 @@ router.get("/", authenticateUser, async (req, res) => {
   res.json(cases);
 });
 
-/*
-// GET the cases for a user
-router.get('/:userId', async (req, res) => {
-  const { userId } = req.params;
-  try {
-    const result = await getCasesByUserId(userId)
-//      const result = await getCaseById(id);
-    if (!result) {
-      return res.status(404).send('Case not found');
-    }
-    res.status(200).json(result);
-  } catch (err) {
-    res.status(500).send('Error fetching case');
-  }
-});
-*/  
-
   
 // POST create a new model
 router.post('/', authenticateUser, async (req, res) => {
-  const { title, description } = req.body;
+  const { title, description, status } = req.body;
   const userId = req.userId;
   try {
-    const createdRow = await createModel(title, description, userId);
+    const createdRow = await createModel(title, description, status, userId);
     await createDefaultModelInfo(createdRow._id);
     
     res.status(201).json(createdRow);
@@ -74,5 +57,20 @@ router.delete('/:id', authenticateUser, async (req, res) => {
 });
 
   
+// POST create a new model
+router.post('/update-status/:id', authenticateUser, async (req, res) => {
+  const { status } = req.body;
+  const { id } = req.params;
+  try {
+    console.log("status is: ", status)
+    console.log("mi is: ", id)
+    await updateStatusById(id, status)
+    
+    res.status(200).send(`status updated!`);
+  } catch (err) {
+    console.error('Error updating status!', err);
+    res.status(500).send('Error updating status!');
+  }
+});
 
   module.exports = router;

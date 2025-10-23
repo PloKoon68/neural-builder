@@ -18,6 +18,15 @@ const createModel = async (newModelData) => {
   }
 };
 
+const updateStatue = async (modelId, isCompiled, isTrained) => {
+  let status;
+  console.log("now sending to: ", modelId)
+  if(isTrained) status = "trained"
+  else if(isCompiled) status = "compiled"
+  else status = "draft" 
+  await expressAPI.post(`/models/update-status/${modelId}`, {status: status}, { withCredentials: true });
+};
+
 
 const updateModel = async (modelId, updatedData) => {
   //console.log("mid:", modelId, "updaedDate:", updatedData)
@@ -29,10 +38,10 @@ const deleteModel = async (modelId) => {
 };
 
 
-
 export {
   fetchModels,
   createModel,
   updateModel,
-  deleteModel
+  deleteModel,
+  updateStatue
 };

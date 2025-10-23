@@ -4,13 +4,9 @@ import axios from 'axios';
 //const EXPRESS_URL = "http://localhost:5000/api"; // Change this to your backend URL
 //const EXPRESS_URL = "https://deep-learning-framework-express.onrender.com/api"; // Change this to your backend URLs
 const EXPRESS_URL = process.env.REACT_APP_EXPRESS_URL;
-console.log("E: ", EXPRESS_URL);
 
 const CROW_URL_HTTP = process.env.REACT_APP_CROW_URL_HTTP;
-console.log("CR: ", CROW_URL_HTTP);
-
 const CROW_URL_WS = process.env.REACT_APP_CROW_URL_WS;
-console.log("WS: ", CROW_URL_WS);
 
 /*
 const CROW_URL_HTTP = "https://deep-learning-framework-crow.onrender.com"; 

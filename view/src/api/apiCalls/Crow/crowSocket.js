@@ -10,7 +10,8 @@ const generateSocket = (
     setModelInProcess,
     setIsTraining,
     setParameters,
-    setNormalizerParameters
+    setNormalizerParameters,
+    setIsTrained
 ) => {
     const newSocket = new WebSocket(CROW_URL_WS);
 
@@ -82,6 +83,7 @@ const generateSocket = (
         setSocket(null);
         setModelInProcess(false);
         setIsTraining(false);
+        setIsTrained(true);
     };
 
     newSocket.onerror = (error) => {

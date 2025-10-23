@@ -5,7 +5,8 @@ const { ModelInfo } = require('./modelInfoModel'); // adjust path if needed
 const savedWorkSchema = new mongoose.Schema({
   title:       { type: String, required: true },
   description: { type: String },
-  userId:           { type: mongoose.Schema.Types.ObjectId, ref: 'users', required: true }
+  status: { type: String, required: true },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'users', required: true }
 
 }, { timestamps: true });
 
@@ -22,8 +23,8 @@ savedWorkSchema.pre('findOneAndDelete', async function (next) {
 const Models = mongoose.model('models', savedWorkSchema);
 
 // Create new saved work
-const createModel = async (title, description, userId) => {
-  return await Models.create({ title, description, userId });
+const createModel = async (title, description, status, userId) => {
+  return await Models.create({ title, description, status, userId });
 };
 
 // Get all works by user (optionally limit fields)
@@ -46,6 +47,16 @@ const updateModelById = async (id, title, description) => {
   );
 };
 
+const updateStatusById = async (id, status) => {
+  const updatedData = { status }; // Only status will be updated
+  return await Models.findByIdAndUpdate(
+    id,
+    { $set: updatedData },
+    { new: true, runValidators: true }
+  );
+};
+
+
 // Delete a work
 const deleteModelById = async (id) => {
   return await Models.findOneAndDelete({ _id: id }); 
@@ -57,7 +68,8 @@ module.exports = {
   getAllModelsByUserId,
   getModelById,
   deleteModelById,
-  updateModelById
+  updateModelById,
+  updateStatusById
 };
 
 

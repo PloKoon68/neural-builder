@@ -5,8 +5,9 @@ import Papa from 'papaparse';
 
 
 import { useParams } from 'react-router-dom';
-import { sendTestRequest, sendHyperparametersCrow, fetchParameters, sendPredictionRequest,   createCompiledModel, removeModel } from '../../../../api/apiCalls/Crow/crowHttp.js';
+import { sendTestRequest, sendHyperparametersCrow, sendPredictionRequest, createCompiledModel, removeModel } from '../../../../api/apiCalls/Crow/crowHttp.js';
 import { saveModelInfo, fetchModelData } from '../../../../api/apiCalls/Express/processApi.js';
+import { updateStatue } from '../../../../api/apiCalls/Express/modelApi.js';
 
 import { generateSocket } from '../../../../api/apiCalls/Crow/crowSocket.js';
 
@@ -14,30 +15,11 @@ import { generateSocket } from '../../../../api/apiCalls/Crow/crowSocket.js';
 // for loss graph
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-
 import '../../../../style/Pages/Processing Page Style/mainBox.css'; // for styling
 
 import { Virtuoso } from "react-virtuoso";
 
 
-
-
-
-const TestEpoch = ({epochLogs}) => {
-
-  return(
-    epochLogs.length > 0 && (
-        <div className="bg-slate-900 rounded-lg p-3 max-h-64 overflow-y-auto">
-          <h4 className="text-xs font-medium text-slate-400 mb-2">Training Logs</h4>
-          {epochLogs.map((log, idx) => (
-            <div key={idx} className="text-xs text-slate-300 font-mono mb-1">
-              {log}
-            </div>
-          ))}
-        </div>
-      )
-  )
-} 
 const ProcessPage = ({ saved, setSaved }) => {
   // State management
 
@@ -74,12 +56,14 @@ const ProcessPage = ({ saved, setSaved }) => {
     features: null,
     labels: null
   });
-  
+
+
+  const [isTrained, setIsTrained] = useState(false);
+  const [isCompiled, setIsCompiled] = useState(false);
 
   const [inputSize, setInputSize] = useState(40);
   const [parameters, setParameters] = useState([]);
   const [normalizerParameters, setNormalizerParameters] = useState([]);
-  const [isCompiled, setIsCompiled] = useState(false);
   const [modelInProcess, setModelInProcess] = useState(false);
   const [isTraining, setIsTraining] = useState(false);
   const [isTesting, setIsTesting] = useState(false);
@@ -111,6 +95,12 @@ const ProcessPage = ({ saved, setSaved }) => {
   const [showTrainingChart, setShowTrainingChart] = useState(true);
   const [showEpochLogs, setShowEpochLogs] = useState(false);
   
+  useEffect(() => {
+    if (!isCompiled) {
+      setIsTrained(false);
+    }
+  }, [isCompiled]);
+
 useEffect(() => {
   const handlePopstate = (event) => {
     if (!saved) {
@@ -290,7 +280,6 @@ useEffect(() => {
   useEffect(() => {
     // Create model when mounted  
     if(isCompiled) {
-
       let hyperParametersWithParameters = transform()
 
       hyperParametersWithParameters = {...hyperParametersWithParameters, lossFunction: trainingHyperparameters.lossFunction, parameters: parameters, normalizerParameters: normalizerParameters}
@@ -692,15 +681,16 @@ const MainBox = () => {
       normalizerParameters: normalizerParameters,
       inputSize: inputSize,
       isCompiled: isCompiled,
+      isTrained: isTrained
     };
     await saveModelInfo(modelInfo);
+    console.log("gonna send to: ", modelId)
+    await updateStatue(modelId, isCompiled, isTrained);
     setSaved(true);
   };
 
 
     
-
-
 
   return (
     
@@ -909,6 +899,7 @@ const MainBox = () => {
                             onDelete={handleLayerDelete}
                             layerNeuronRefs={layerNeuronRefs}
                             setIsCompiled={setIsCompiled}
+                            setIsTrained={setIsTrained}
                             setSaved={setSaved}
                             neuronSize={neuronSize}
                           />
@@ -1001,11 +992,6 @@ const MainBox = () => {
 
 
 
-
-
-
-
-
             </>
           )}
         </div>
@@ -1019,7 +1005,7 @@ const MainBox = () => {
 
 
   // NetworkLayer Component (based on your Layer.js)
-  const NetworkLayer = ({ la, layerNeuronRefs, onSave, onDelete, index, setIsCompiled, setSaved, neuronSize }) => {
+  const NetworkLayer = ({ la, layerNeuronRefs, onSave, onDelete, index, setIsCompiled, setIsTrained, setSaved, neuronSize }) => {
     const [showForm, setShowForm] = useState(false);
     const [tempLayer, setTempLayer] = useState(la);
 
@@ -1237,7 +1223,7 @@ const MainBox = () => {
     // Clear previous logs  
     setEpochLogs([]);
     setModelInProcess(true)
-    const newSocket = await generateSocket(modelId, trainDataset, trainingHyperparameters, setEpochLogs, setTrainResult, setSocket, setModelInProcess, setIsTraining, setParameters, setNormalizerParameters);
+    const newSocket = await generateSocket(modelId, trainDataset, trainingHyperparameters, setEpochLogs, setTrainResult, setSocket, setModelInProcess, setIsTraining, setParameters, setNormalizerParameters, setIsTrained);
     // Store the socket in state
     setSocket(newSocket);
   };
