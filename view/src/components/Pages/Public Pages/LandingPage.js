@@ -96,17 +96,11 @@ export default function LandingPage() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <button
-                onClick={() => navigate('/register')}
+                onClick={() => navigate('/getting-started')}
                 className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-lg font-semibold text-lg flex items-center justify-center gap-2 transition-all hover:shadow-lg hover:shadow-green-600/50"
               >
-                Get Started Free
+                Getting Started Guide
                 <ArrowRight className="h-5 w-5" />
-              </button>
-              <button
-                onClick={() => navigate('/how-it-works')}
-                className="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-white px-8 py-4 rounded-lg font-semibold text-lg border border-slate-700 transition-all"
-              >
-                See How It Works
               </button>
             </div>
 
