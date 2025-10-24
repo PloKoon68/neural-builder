@@ -44,6 +44,10 @@ app.get('/healthz', (req, res) => {
   res.status(200).send('OK');
 });
 
+//for frontend
+app.get('/api/healthz', (req, res) => {
+  res.status(200).send('OK');
+});
 
 
 /*
