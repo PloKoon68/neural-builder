@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Menu, X, Brain, Info, HelpCircle, FolderOpen, LogOut, LogIn, UserPlus } from 'lucide-react';
+import { Menu, X, Brain, Info, HelpCircle, FolderOpen, LogOut, LogIn, UserPlus, Rocket } from 'lucide-react';
 
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext'; 
@@ -53,20 +53,13 @@ function Navbar({ saved = true, setSaved = () => {} }) {
             {/* Desktop Navigation Links */}
             <div className="hidden md:flex items-center gap-1">
               <button
-                onClick={() => handleNavigation('/about')}
+                onClick={() => handleNavigation('/getting-started')}
                 className="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition-colors text-sm"
               >
-                <Info className="h-4 w-4" />
-                About
+                <Rocket className="h-4 w-4" />
+                Getting Started
               </button>
-              
-              <button
-                onClick={() => handleNavigation('/how-it-works')}
-                className="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition-colors text-sm"
-              >
-                <HelpCircle className="h-4 w-4" />
-                How It Works
-              </button>
+
               
               {isLoggedIn && (
                 <button

@@ -1,10 +1,6 @@
 import { Brain, Zap, BarChart3, Upload, Play, CheckCircle, ArrowRight, Layers, Activity, Target } from 'lucide-react';
 
-// Mock navigation function - replace with your actual useNavigate
-const useNavigate = () => (path) => {
-  console.log('Navigate to:', path);
-  alert(`Would navigate to: ${path}`);
-};
+import { useNavigate } from 'react-router-dom';
 
 export default function LandingPage() {
   const navigate = useNavigate();

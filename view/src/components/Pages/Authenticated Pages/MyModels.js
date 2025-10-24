@@ -212,7 +212,7 @@ export default function MyModels() {
 
         {/* Models Grid */}
         {filteredModels.length === 0 ? (
-          <div className="bg-slate-800 rounded-xl border border-slate-700 p-12 text-center">
+          <div className="bg-slate-800 rounded-xl border transition-all border-slate-700 p-12 text-center">
             <Brain className="h-16 w-16 text-slate-600 mx-auto mb-4" />
             <h3 className="text-xl font-semibold text-white mb-2">
               {searchQuery ? "No models found" : "No models yet"}
@@ -234,7 +234,7 @@ export default function MyModels() {
             )}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
             {filteredModels.map((modelCard, index) => (
               <div
                 key={modelCard._id || index}
