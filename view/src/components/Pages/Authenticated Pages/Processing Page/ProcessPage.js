@@ -1993,13 +1993,13 @@ function TrainingLogs({ logs }) {
                         <div className="flex justify-between items-center">
                           <span className="text-slate-400">Predicted Class:</span>
                           <span className="text-cyan-400 font-bold text-lg">
-                            {predictionResult.predicted_class}
+                            {predictionResult.predicted_class > 0.5? 'positive': 'negative'}
                           </span>
                         </div>
                         <div className="flex justify-between items-center">
-                          <span className="text-slate-400">Confidence:</span>
+                          <span className="text-slate-400">Raw Probability:</span>
                           <span className="text-cyan-400 font-bold">
-                            {(predictionResult.confidence * 100).toFixed(2)}%
+                            {(predictionResult.predicted_class * 100).toFixed(2)}%
                           </span>
                         </div>
                         {predictionResult.probabilities && (

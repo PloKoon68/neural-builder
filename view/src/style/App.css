@@ -12,12 +12,6 @@ body, html {
   justify-content: flex-start;
   box-sizing: border-box;
 
-  background: linear-gradient(
-  90deg,
-  rgba(255, 94, 98, 1) 0%,
-  rgba(255, 165, 0, 1) 50%,
-  rgb(237, 196, 160) 100%
-  );
   overflow: hidden;
 }
 
