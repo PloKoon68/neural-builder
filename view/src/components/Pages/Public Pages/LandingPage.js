@@ -217,11 +217,14 @@ export default function LandingPage() {
               {/* Placeholder for Screenshot/Demo */}
               <div className="relative">
                 <div className="bg-slate-800 rounded-xl border border-slate-700 p-8 shadow-2xl">
-                  <img 
-                    src="/demo.gif" 
-                    alt="Building a neural network demo"
-                    className="aspect-video rounded-lg w-full"
-                  />
+                  <video 
+                    className="w-full h-full object-cover"
+                    controls
+                    poster="/tutorial-thumbnail.jpg"
+                  >
+                    <source src="/videos/720p compressed.mp4" type="video/mp4" />
+                  </video>
+                  
                 </div>
               </div>
 

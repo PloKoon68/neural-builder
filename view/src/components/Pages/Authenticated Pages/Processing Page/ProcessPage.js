@@ -26,8 +26,7 @@ const ProcessPage = ({ saved, setSaved }) => {
   const modelId = useParams().modelId
 
   const [layers, setLayers] = useState([
-    { activation: "relu", numOfNeurons: 5, lr: 0.01, wim: "XAVIER", layerType: "DL" },
-    { activation: "relu", numOfNeurons: 2, lr: 0.01, wim: "XAVIER", layerType: "DL" }
+    { activation: "relu", numOfNeurons: 1, lr: 0.01, wim: "XAVIER", layerType: "DL" }
   ]);
   
   const [trainingHyperparameters, setTrainingHyperparameters] = useState({

@@ -166,22 +166,19 @@ export default function GettingStartedPage() {
 
           <div className="bg-slate-800 rounded-xl border border-slate-700 p-6 shadow-2xl">
             {/* Video Placeholder */}
-            <div className="aspect-video bg-slate-700 rounded-lg flex items-center justify-center">
-              <div className="text-center">
-                <Video className="h-16 w-16 text-slate-600 mx-auto mb-4" />
-                <p className="text-slate-400 mb-2">Full Tutorial Video</p>
-                <p className="text-slate-500 text-sm">Coming soon - Step-by-step walkthrough</p>
-                {/* Replace with actual video:
-                <video 
-                  className="aspect-video rounded-lg w-full"
-                  controls
-                  poster="/tutorial-thumbnail.jpg"
-                >
-                  <source src="/tutorial.mp4" type="video/mp4" />
-                </video>
-                */}
-              </div>
+          <div className="aspect-video bg-slate-700 rounded-lg flex items-center justify-center overflow-hidden">
+            <div className="text-center w-full h-full">
+
+              <video 
+                className="w-full h-full object-cover"
+                controls
+                poster="/tutorial-thumbnail.jpg"
+              >
+                <source src="/videos/720p compressed.mp4" type="video/mp4" />
+              </video>
+              
             </div>
+          </div>
 
             {/* Video Info */}
             <div className="mt-6 flex flex-wrap items-center justify-between gap-4 text-sm text-slate-400">
@@ -201,6 +198,8 @@ export default function GettingStartedPage() {
               </button>
             </div>
           </div>
+
+
         </div>
       </section>
 
